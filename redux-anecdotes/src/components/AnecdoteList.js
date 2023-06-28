@@ -3,6 +3,7 @@ import { incrementVote } from "../reducers/anecdoteReducer"
 const AnecdoteList = () => {
   const anecdotes = useSelector(({ anecdotes, filter}) => {
   if (filter === ''){
+    console.log(anecdotes)
     return anecdotes
   }
   const regex = new RegExp( filter, 'i')
@@ -15,9 +16,12 @@ const AnecdoteList = () => {
     dispatch(incrementVote(id))
   }
 
+  const anecdotesToSort = [...anecdotes]
+  
+
   return (
     <div>
-      {anecdotes.sort((a, b) => b.votes - a.votes).map(anecdote =>
+      {anecdotesToSort.sort((a, b) => b.votes - a.votes).map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
